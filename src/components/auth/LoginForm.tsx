@@ -1,6 +1,5 @@
 
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -39,9 +38,12 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export default function LoginForm() {
+interface LoginFormProps {
+  onLoginSuccess?: (isFarmer: boolean) => void;
+}
+
+export default function LoginForm({ onLoginSuccess }: LoginFormProps) {
   const { toast } = useToast();
-  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
 
@@ -66,11 +68,9 @@ export default function LoginForm() {
       description: `Welcome ${isSignup ? "to AgroCraft" : "back"}, ${data.isFarmer ? "Farmer" : "Customer"}!`,
     });
     
-    // Redirect based on user type
-    if (data.isFarmer) {
-      navigate("/farmers"); // Farmer dashboard
-    } else {
-      navigate("/products"); // Customer products page
+    // Call the callback if provided
+    if (onLoginSuccess) {
+      onLoginSuccess(data.isFarmer);
     }
   };
 
