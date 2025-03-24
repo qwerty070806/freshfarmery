@@ -89,11 +89,11 @@ export default function Navbar() {
               <Search size={20} />
               <span className="text-sm ml-1">Search</span>
             </button>
-            <Link to="/account" className="p-2 hover:text-nature-600 transition-colors" aria-label="Account">
+            <Link to="/account" className="p-2 hover:text-nature-600 transition-colors" onClick={() => setIsOpen(false)} aria-label="Account">
               <User size={20} />
               <span className="text-sm ml-1">Account</span>
             </Link>
-            <Link to="/cart" className="p-2 hover:text-nature-600 transition-colors" aria-label="Cart">
+            <Link to="/cart" className="p-2 hover:text-nature-600 transition-colors" onClick={() => setIsOpen(false)} aria-label="Cart">
               <ShoppingCart size={20} />
               <span className="text-sm ml-1">Cart (0)</span>
             </Link>
